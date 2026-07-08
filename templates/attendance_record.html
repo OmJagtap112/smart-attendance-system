@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Attendance Records{% endblock %}
+{% block content %}
+<h1 class="page-title">Attendance Records</h1>
+<p class="page-sub">Date-wise and lecture-wise attendance of registered students.</p>
+
+<div class="filter-bar">
+    <form method="GET" style="display:flex; gap:12px; align-items:center;">
+        <select name="date" onchange="this.form.submit()">
+            {% for d in dates %}
+                <option value="{{ d }}" {{ 'selected' if d == selected_date }}>{{ d }}</option>
+            {% endfor %}
+        </select>
+    </form>
+    <a href="{{ url_for('download_attendance', date=selected_date) }}" class="btn">Download this date (Excel)</a>
+    <a href="{{ url_for('download_attendance') }}" class="btn btn-secondary">Download full sheet (Excel)</a>
+</div>
+
+<div class="card">
+    {% if records %}
+    <table>
+        <thead><tr><th>Roll No</th><th>Name</th><th>Lecture</th><th>Status</th><th>Marked At</th></tr></thead>
+        <tbody>
+        {% for r in records %}
+            <tr>
+                <td>{{ r.roll_no }}</td>
+                <td>{{ r.name }}</td>
+                <td>{{ r.lecture }}</td>
+                <td><span class="badge badge-present">{{ r.status }}</span></td>
+                <td>{{ r.marked_at }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">No attendance records yet. Head to "Take Attendance" to start marking attendance.</div>
+    {% endif %}
+</div>
+{% endblock %}

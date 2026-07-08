@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Add Student{% endblock %}
+{% block content %}
+<h1 class="page-title">Add New Student</h1>
+<p class="page-sub">Register a student and capture their face so they can be recognized during attendance.</p>
+
+<div class="card">
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-row">
+            <div>
+                <label for="roll_no">Roll number</label>
+                <input type="text" id="roll_no" name="roll_no" placeholder="e.g. 39ASD20IT" required>
+            </div>
+            <div>
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" placeholder="Information Technology">
+            </div>
+            <div>
+                <label for="year">Year</label>
+                <input type="text" id="year" name="year" placeholder="Final Year">
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div>
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+        </div>
+
+        <label>Face photo source</label>
+        <div class="radio-group">
+            <label><input type="radio" name="capture_mode" value="upload" checked onclick="toggleMode('upload')"> Upload a photo</label>
+            <label><input type="radio" name="capture_mode" value="webcam" onclick="toggleMode('webcam')"> Capture via webcam</label>
+        </div>
+
+        <div id="upload-field">
+            <label for="photo">Student photo (clear, front-facing)</label>
+            <input type="file" id="photo" name="photo" accept="image/*">
+        </div>
+        <div id="webcam-field" style="display:none;">
+            <div class="hint-box">
+                Clicking "Add Student" will open the server's webcam and capture
+                a handful of face samples automatically.
+                Make sure the server machine has a webcam connected and only one face is in view.
+            </div>
+        </div>
+
+        <button type="submit" class="btn">Add Student</button>
+    </form>
+</div>
+
+<script>
+function toggleMode(mode) {
+    document.getElementById('upload-field').style.display = mode === 'upload' ? 'block' : 'none';
+    document.getElementById('webcam-field').style.display = mode === 'webcam' ? 'block' : 'none';
+    document.getElementById('photo').required = (mode === 'upload');
+}
+</script>
+{% endblock %}

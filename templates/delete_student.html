@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Delete Student{% endblock %}
+{% block content %}
+<h1 class="page-title">Delete Student</h1>
+<p class="page-sub">Removes a student's record, photos, and attendance history from the system.</p>
+
+<div class="card" style="max-width:420px;">
+    <form method="POST">
+        <label for="roll_no">Student Roll Number</label>
+        <input type="text" id="roll_no" name="roll_no" placeholder="e.g. 39ASD20IT" required>
+        <button type="submit" class="btn btn-danger" onclick="return confirm('This will permanently delete this student and their attendance history. Continue?');">Delete Student</button>
+    </form>
+</div>
+{% endblock %}

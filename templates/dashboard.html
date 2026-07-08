@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Smart Attendance System{% endblock %}
+{% block content %}
+<h1 class="page-title">Dashboard</h1>
+<p class="page-sub">Overview for {{ today }}</p>
+
+<div class="grid-stats">
+    <div class="stat-card">
+        <div class="stat-value">{{ total_students }}</div>
+        <div class="stat-label">Total registered students</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ present_today }}</div>
+        <div class="stat-label">Present today</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" style="font-size:18px;">{{ current_lecture }}</div>
+        <div class="stat-label">Current slot</div>
+    </div>
+</div>
+
+<div class="card">
+    <h3 style="margin-top:0;">Quick actions</h3>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="{{ url_for('take_attendance') }}" class="btn">Take Attendance</a>
+        <a href="{{ url_for('add_student') }}" class="btn btn-secondary">Add Student</a>
+        <a href="{{ url_for('attendance_record') }}" class="btn btn-secondary">View Attendance Records</a>
+        <a href="{{ url_for('download_attendance') }}" class="btn btn-secondary">Download Full Excel Sheet</a>
+    </div>
+</div>
+{% endblock %}

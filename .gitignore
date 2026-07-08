@@ -1,0 +1,16 @@
+venv/
+__pycache__/
+*.pyc
+
+# Runtime-generated data — should not be committed
+data/attendance.db
+data/EncodeFile.p
+static/student_images/*
+!static/student_images/.gitkeep
+exports/*.xlsx
+!exports/.gitkeep
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/

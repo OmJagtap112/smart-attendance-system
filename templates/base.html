@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Smart Attendance System{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% if current_user %}
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-mark">FR</span>
+            <div>
+                <div class="brand-title">Smart Attendance</div>
+                <div class="brand-sub">Face Recognition System</div>
+            </div>
+        </div>
+        <nav class="nav">
+            <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint=='dashboard' }}">Dashboard</a>
+            <a href="{{ url_for('take_attendance') }}" class="{{ 'active' if request.endpoint=='take_attendance' }}">Take Attendance</a>
+            <a href="{{ url_for('add_student') }}" class="{{ 'active' if request.endpoint=='add_student' }}">Add Student</a>
+            <a href="{{ url_for('all_students') }}" class="{{ 'active' if request.endpoint in ['all_students','student_profile'] }}">All Students</a>
+            <a href="{{ url_for('delete_student') }}" class="{{ 'active' if request.endpoint=='delete_student' }}">Delete Student</a>
+            <a href="{{ url_for('attendance_record') }}" class="{{ 'active' if request.endpoint=='attendance_record' }}">Attendance Records</a>
+            <a href="{{ url_for('change_password') }}" class="{{ 'active' if request.endpoint=='change_password' }}">Change Password</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-chip">Signed in as <strong>{{ current_user }}</strong></div>
+            <a href="{{ url_for('logout') }}" class="logout-link">Log out</a>
+        </div>
+    </aside>
+    <main class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-stack">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+</div>
+{% else %}
+    {% block auth_content %}{% endblock %}
+{% endif %}
+</body>
+</html>

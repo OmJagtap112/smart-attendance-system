@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{{ student.name }} - Profile{% endblock %}
+{% block content %}
+<h1 class="page-title">{{ student.name }}</h1>
+<p class="page-sub">Roll No: {{ student.roll_no }}</p>
+
+<div class="card">
+    <div class="form-row">
+        <div><strong>Department</strong><p>{{ student.department or "-" }}</p></div>
+        <div><strong>Year</strong><p>{{ student.year or "-" }}</p></div>
+    </div>
+    <div class="form-row">
+        <div><strong>Email</strong><p>{{ student.email or "-" }}</p></div>
+        <div><strong>Phone</strong><p>{{ student.phone or "-" }}</p></div>
+    </div>
+    <strong>Face Encoding</strong>
+    <p>{% if student.encoding_ready %}<span class="badge badge-ready">Ready</span>{% else %}<span class="badge badge-pending">Pending</span>{% endif %}</p>
+</div>
+
+<div class="card">
+    <h3 style="margin-top:0;">Attendance History</h3>
+    {% if records %}
+    <table>
+        <thead><tr><th>Date</th><th>Lecture</th><th>Status</th><th>Marked At</th></tr></thead>
+        <tbody>
+        {% for r in records %}
+            <tr>
+                <td>{{ r.date }}</td>
+                <td>{{ r.lecture }}</td>
+                <td><span class="badge badge-present">{{ r.status }}</span></td>
+                <td>{{ r.marked_at }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">No attendance recorded yet for this student.</div>
+    {% endif %}
+</div>
+
+<a href="{{ url_for('all_students') }}" class="btn btn-secondary">Back to All Students</a>
+{% endblock %}

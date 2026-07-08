@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Authentication Failed{% endblock %}
+{% block auth_content %}
+<div class="auth-wrap">
+    <div class="auth-card" style="text-align:center;">
+        <div class="error-icon">!</div>
+        <h1>Authentication Failed</h1>
+        <p class="sub">{{ message or "Invalid username or password." }}</p>
+        <a href="{{ url_for('login') }}" class="btn" style="display:block;">Back to Login</a>
+    </div>
+</div>
+{% endblock %}

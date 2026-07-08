@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}All Students{% endblock %}
+{% block content %}
+<h1 class="page-title">All Students</h1>
+<p class="page-sub">Every student currently registered in the system.</p>
+
+<div class="card">
+    {% if students %}
+    <table>
+        <thead>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Year</th>
+                <th>Email</th>
+                <th>Face Encoding</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.roll_no }}</td>
+                <td>{{ s.name }}</td>
+                <td>{{ s.department or "-" }}</td>
+                <td>{{ s.year or "-" }}</td>
+                <td>{{ s.email or "-" }}</td>
+                <td>
+                    {% if s.encoding_ready %}
+                        <span class="badge badge-ready">Ready</span>
+                    {% else %}
+                        <span class="badge badge-pending">Pending</span>
+                    {% endif %}
+                </td>
+                <td><a href="{{ url_for('student_profile', roll_no=s.roll_no) }}" class="btn btn-secondary" style="padding:6px 14px; font-size:13px;">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">No students registered yet. <a href="{{ url_for('add_student') }}">Add your first student</a>.</div>
+    {% endif %}
+</div>
+{% endblock %}
